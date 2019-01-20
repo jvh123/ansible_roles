@@ -1,0 +1,18 @@
+- hosts: master
+  tasks:
+    - name: yum install git
+      yum:
+        name: git
+        state: latest
+    - name: git clone
+      git:
+        repo: 'https://github.com/kubernetes-sigs/kubespray.git'
+        dest: kubespray 
+    - name: pip install requirements.txt
+      pip:
+        requirements: kubespray/requirements.txt
+    - name: copy inventory file
+      copy:
+        src: kubespray/inventory/sample/
+        dest: kubespray/inventory/mycluster
+      

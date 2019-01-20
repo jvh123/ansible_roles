@@ -1,0 +1,30 @@
+- hosts: all
+  vars:
+    packages:
+      - epel-release
+      - ansible
+  tasks:
+    - name: selinux OFF
+      selinux:
+        policy: targeted
+        state: enforcing
+    - name: selinux disabled seting 
+      command: sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+    - name: firlwall service off
+      systemd:
+        name: firewalld
+        state: stopped
+        enabled: no
+    - name: intsll epel-release
+      yum:
+        name: "{{ packages }}"
+        state: latest
+    - name: easy_install pip  
+      easy_install:
+        name: pip
+        state: present
+    - name: pip2 install jinja2 upgreade
+      pip: 
+        name: jinja2
+        executable: pip2
+        state: latest
