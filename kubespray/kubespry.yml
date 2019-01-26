@@ -28,3 +28,17 @@
         name: jinja2
         executable: pip2
         state: latest
+- hosts: master
+  tasks:
+    - name: git clone
+      git:
+        repo: 'https://github.com/kubernetes-sigs/kubespray.git'
+        dest: ~/ansible_roles/kubespray/kubespray
+    - name: pip install requirements.txt
+      pip:
+        requirements: ~/ansible_roles/kubespray/kubespray/requirements.txt
+    - name: copy inventory file
+      copy:
+        src: ~/ansible_roles/kubespray/kubespray/inventory/sample/
+        dest: ~/ansible_roles/kubespray/kubespray/inventory/mycluster
+
