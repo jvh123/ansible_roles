@@ -3,6 +3,7 @@
     packages:
       - epel-release
       - ansible
+      - python36
   tasks:
     - name: selinux OFF
       selinux:
